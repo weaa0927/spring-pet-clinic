@@ -1,9 +1,5 @@
-FROM eclipse-temurin:21-jdk AS build
-WORKDIR /app
-COPY . .
-RUN ./mvnw -DskipTests package
-
-FROM eclipse-temurin:21-jre
-COPY --from=build /app/target/*.jar /app.jar
+FROM eclipse-temurin:21-jdk
+ARG JAR_FILE=target/*.jar
+COPY ${JAR_FILE} /app.jar
 EXPOSE 8080
 ENTRYPOINT ["java","-jar","/app.jar"]
