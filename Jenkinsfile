@@ -47,7 +47,8 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploy'
-                sh 'kubectl apply -f k8s/'
+                sh 'kubectl apply -f k8s/petclinic-deploy.yaml'
+                sh 'kubectl apply -f k8s/petclinic-svc-ing.yaml'
                 sh 'kubectl rollout restart deployment/petclinic -n was'
             }
         }
